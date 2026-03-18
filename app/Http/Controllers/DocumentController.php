@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Document;
 use App\Services\DocumentService;
 use  App\Http\Requests\DocumentStoreRequest;
+use  App\Http\Requests\UpdateDocumentRequest;
 
 class DocumentController extends Controller
 {
@@ -29,10 +30,27 @@ class DocumentController extends Controller
             );
 
             return redirect()->route('dashboard')
-                ->with('success', 'Document uploaded successfully and is pending verification.');
+                ->with('success', 'Document uploaded successfully.');
         } catch (\Exception $e) {
             return back()->withErrors(['document' => 'Upload failed: ' . $e->getMessage()]);
         }
+    }
+
+    public function edit($id)
+    {
+        $document = Document::findOrFail($id);
+        return view('documents.edit', compact('document'));
+    }
+
+    public function update(UpdateDocumentRequest $request, $id)
+    {
+        $this->documentService->updateDocument(
+            $request->validated(),
+            $id,
+            $request->file('document') // Will be null if no file is uploaded
+        );
+
+        return redirect()->route('dashboard')->with('success','Document updated successfully.');
     }
 
     /**

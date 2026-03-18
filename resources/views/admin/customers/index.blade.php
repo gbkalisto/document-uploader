@@ -69,7 +69,7 @@
                                 </td>
                                 <td>
                                     <p class="mb-0 text-muted small text-truncate">
-                                        {{ $user->documents_count }}
+                                       <span class="badge bg-secondary">{{ $user->documents_count }}</span>
                                     </p>
                                 </td>
 

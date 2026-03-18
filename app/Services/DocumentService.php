@@ -44,6 +44,45 @@ class DocumentService
         ]);
     }
 
+    public function updateDocument(array $data, $id, $file = null)
+    {
+        $document = Document::findOrFail($id);
+        $userId = auth()->id();
+        $title = $data['title'];
+
+        // Initialize data for update
+        $updateData = [
+            'title' => $title,
+        ];
+
+        // Check if a new file was uploaded
+        if ($file) {
+            // 1. Delete the old file from storage
+            if (Storage::disk('public')->exists($document->file_path)) {
+                Storage::disk('public')->delete($document->file_path);
+            }
+
+            // 2. Process the new file
+            $extension = $file->getClientOriginalExtension();
+            $fileName = $this->generateUniqueFileName($userId, $title, $extension);
+            $folderPath = "documents/{$userId}";
+
+            // 3. Store the new file
+            $path = $file->storeAs($folderPath, $fileName, 'public');
+            $sizeInMb = number_format($file->getSize() / 1048576, 2) . ' MB';
+
+            // 4. Add new file info to the update array
+            $updateData['file_path'] = $path;
+            $updateData['file_type'] = $extension;
+            $updateData['file_size'] = $sizeInMb;
+        }
+
+        // Update the record in the database
+        $document->update($updateData);
+
+        return $document;
+    }
+
     private function generateUniqueFileName($userId, $title, $extension)
     {
         $slug = Str::slug($title); // Converts "My Photo" to "my-photo"

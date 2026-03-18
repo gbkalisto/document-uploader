@@ -5,57 +5,45 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
 
-                {{-- Breadcrumb/Back link --}}
+                {{-- Back link --}}
                 <div class="mb-4 text-end">
                     <a href="{{ route('dashboard') }}" class="text-decoration-none text-secondary small fw-bold">
-                        <i class="bi bi-arrow-left me-1"></i> BACK TO DASHBOARD
+                        <i class="bi bi-arrow-left me-1"></i> BACK TO LIST
                     </a>
                 </div>
 
                 <div class="card border-0 shadow-sm rounded-4 overflow-hidden hover-bounce">
                     <div class="card-header bg-white py-4 px-4 border-0">
-                        <h4 class="fw-extrabold mb-1">Upload Document</h4>
-                        <p class="text-muted mb-0 small">Please ensure your file is clear and readable.</p>
+                        <h4 class="fw-extrabold mb-1">Edit Document</h4>
+                        <p class="text-muted mb-0 small">Update your document details or replace the file.</p>
                     </div>
 
                     <div class="card-body p-4">
-                        <form action="{{ route('documents.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('documents.update', $document->id) }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
 
                             <div class="mb-4">
-                                <label class="form-label fw-bold small text-uppercase text-secondary">Documents</label>
-                                {{-- <input type="text" name="title" class="form-control bg-light border-0 py-3 @error('title') is-invalid @enderror"
-                                   placeholder="e.g. Aadhar Card, Driving License" value="{{ old('title') }}" required> --}}
+                                <label class="form-label fw-bold small text-uppercase text-secondary">Document Title</label>
                                 <select name="title" id="title" required
                                     class="form-control bg-light border-0 py-3 @error('title') is-invalid @enderror">
                                     <option value="">Select Document</option>
-
-                                    <option value="Aadhar Card Front"
-                                        {{ old('title') == 'Aadhar Card Front' ? 'selected' : '' }}>
-                                        Aadhar Card Front
-                                    </option>
-
-                                    <option value="Aadhar Card Back"
-                                        {{ old('title') == 'Aadhar Card Back' ? 'selected' : '' }}>
-                                        Aadhar Card Back
-                                    </option>
-
-                                    <option value="Pan Card" {{ old('title') == 'Pan Card' ? 'selected' : '' }}>
-                                        Pan Card
-                                    </option>
-
-                                    <option value="Ration Card" {{ old('title') == 'Ration Card' ? 'selected' : '' }}>
-                                        Ration Card
-                                    </option>
-
-                                    <option value="Voter Id" {{ old('title') == 'Voter Id' ? 'selected' : '' }}>
-                                        Voter Id
-                                    </option>
-
-                                    <option value="Driving License"
-                                        {{ old('title') == 'Driving License' ? 'selected' : '' }}>
-                                        Driving License
-                                    </option>
+                                    @php
+                                        $options = [
+                                            'Aadhar Card Front',
+                                            'Aadhar Card Back',
+                                            'Pan Card',
+                                            'Ration Card',
+                                            'Voter Id',
+                                            'Driving License',
+                                        ];
+                                    @endphp
+                                    @foreach ($options as $option)
+                                        <option value="{{ $option }}" @selected(old('title', $document->title) == $option)>
+                                            {{ $option }}
+                                        </option>
+                                    @endforeach
                                 </select>
                                 @error('title')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -63,22 +51,27 @@
                             </div>
 
                             <div class="mb-4">
-                                <label class="form-label fw-bold small text-uppercase text-secondary">Select File</label>
+                                <label class="form-label fw-bold small text-uppercase text-secondary">Update File (Leave
+                                    blank to keep current)</label>
                                 <div
                                     class="upload-area bg-light rounded-4 p-5 text-center border-2 border-dashed position-relative">
                                     <input type="file" name="document"
                                         class="position-absolute w-100 h-100 top-0 start-0 opacity-0 cursor-pointer"
-                                        id="fileInput" onchange="updateFileName()" required>
+                                        id="fileInput" onchange="updateFileName()">
+
+                                    {{-- Placeholder for current file --}}
                                     <div id="uploadPlaceholder">
-                                        <i class="bi bi-cloud-arrow-up fs-1 text-primary mb-2"></i>
-                                        <h6 class="fw-bold">Click to upload or drag and drop</h6>
-                                        <p class="text-muted small mb-0">PDF, JPG or PNG (Max. 5MB)</p>
+                                        <i class="bi bi-file-earmark-text fs-1 text-primary mb-2"></i>
+                                        <h6 class="fw-bold">Current: {{ basename($document->file_path) }}</h6>
+                                        <p class="text-muted small mb-0">Drag a new file here to replace it</p>
                                     </div>
+
+                                    {{-- Preview for new selected file --}}
                                     <div id="fileSelected" class="d-none">
                                         <i class="bi bi-file-earmark-check fs-1 text-success mb-2"></i>
                                         <h6 id="fileNameDisplay" class="fw-bold mb-0"></h6>
                                         <button type="button" class="btn btn-sm btn-link text-danger mt-2"
-                                            onclick="resetFile()">Change File</button>
+                                            onclick="resetFile()">Cancel New Upload</button>
                                     </div>
                                 </div>
                                 @error('document')
@@ -86,20 +79,22 @@
                                 @enderror
                             </div>
 
-                            <div class="bg-warning bg-opacity-10 border-start border-4 border-warning p-3 rounded-3 mb-4">
+                            <div class="bg-info bg-opacity-10 border-start border-4 border-info p-3 rounded-3 mb-4">
                                 <div class="d-flex">
-                                    <i class="bi bi-exclamation-triangle-fill text-warning me-3 fs-5"></i>
+                                    <i class="bi bi-info-circle-fill text-info me-3 fs-5"></i>
                                     <p class="small text-dark mb-0">
-                                        <strong>Upload Guidelines:</strong> Max file size is 5 MB. Please use clear file
-                                        names and ensure your document is in PDF, JPG, or PNG format.
+                                        <strong>Current File:</strong> <a
+                                            href="{{ asset('storage/' . $document->file_path) }}" target="_blank"
+                                            class="text-decoration-none">View Existing Document</a>
                                     </p>
                                 </div>
                             </div>
 
-                            <div class="d-grid">
+                            <div class="d-grid gap-2">
                                 <button type="submit" class="btn btn-primary py-3 fw-bold shadow-sm hover-bounce">
-                                    <i class="bi bi-check-lg me-2"></i> Save Document
+                                    <i class="bi bi-save me-2"></i> Update Document
                                 </button>
+                                <a href="{{ route('dashboard') }}" class="btn btn-light py-3 fw-bold">Cancel</a>
                             </div>
                         </form>
                     </div>
@@ -108,6 +103,7 @@
         </div>
     </div>
 
+    {{-- Keep your existing <style> and <script> blocks exactly as they are in the create form --}}
     <style>
         .fw-extrabold {
             font-weight: 800;

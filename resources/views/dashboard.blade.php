@@ -116,7 +116,7 @@
                                                         </span>
                                                     @endif
                                                 </td>
-                                                <td class="text-end pe-4">
+                                                {{-- <td class="text-end pe-4">
                                                     <div class="btn-group shadow-sm rounded-3">
                                                         <a href="{{ asset('storage/' . $document->file_path) }}"
                                                             target="_blank" class="btn btn-white btn-sm px-3 border-end"
@@ -139,6 +139,61 @@
                                                                 <i class="bi bi-trash"></i>
                                                             </button>
                                                         </form>
+                                                    </div>
+                                                </td> --}}
+                                                <td class="text-end pe-4">
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-light btn-sm shadow-sm" type="button"
+                                                            id="dropdownMenuButton{{ $document->id }}"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="bi bi-three-dots-vertical"></i>
+                                                        </button>
+
+                                                        <ul class="dropdown-menu dropdown-menu-end shadow border-0"
+                                                            aria-labelledby="dropdownMenuButton{{ $document->id }}">
+                                                            <li>
+                                                                <a class="dropdown-item py-2"
+                                                                    href="{{ asset('storage/' . $document->file_path) }}"
+                                                                    target="_blank">
+                                                                    <i class="bi bi-eye me-2 text-primary"></i> View
+                                                                </a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a class="dropdown-item py-2"
+                                                                    href="{{ asset('storage/' . $document->file_path) }}"
+                                                                    download>
+                                                                    <i class="bi bi-download me-2 text-success"></i>
+                                                                    Download
+                                                                </a>
+                                                            </li>
+
+                                                            <li>
+                                                                <hr class="dropdown-divider">
+                                                            </li>
+                                                            <li>
+                                                                <a href="{{ route('documents.edit',['document'=>$document->id]) }}" type="submit"
+                                                                    class="dropdown-item py-2 text-success">
+                                                                    <i class="bi bi-pencil me-2"></i> Edit
+                                                                </a>
+
+                                                            </li>
+
+                                                            <li>
+                                                                <form
+                                                                    action="{{ route('documents.destroy', $document->id) }}"
+                                                                    method="POST"
+                                                                    onsubmit="return confirm('Are you sure you want to delete this document?')"
+                                                                    class="d-inline">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit"
+                                                                        class="dropdown-item py-2 text-danger">
+                                                                        <i class="bi bi-trash me-2"></i> Delete
+                                                                    </button>
+                                                                </form>
+                                                            </li>
+                                                        </ul>
                                                     </div>
                                                 </td>
                                             </tr>

@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
-    <title>Admin Panel</title>
+    <title> My Solar Expert | Admin Panel</title>
 
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
@@ -39,7 +39,7 @@
             <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
                 <div class="container">
                     <a class="navbar-brand" href="{{ route('admin.dashboard') }}">
-                        Dashboard
+                        My Solar Expert
                     </a>
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"

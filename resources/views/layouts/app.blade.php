@@ -7,8 +7,8 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
+    <title>My Solar Expert</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -27,11 +27,11 @@
 
                 @auth
                     <a class="navbar-brand" href="{{ route('dashboard') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        My Solar Expert
                     </a>
                 @else
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        My Solar Expert
                     </a>
                 @endauth
 
