@@ -31,7 +31,7 @@
                         <span class="input-group-text bg-light border-0">
                             <i class="bi bi-search text-muted"></i>
                         </span>
-                        <input type="text" name="query" class="form-control bg-light border-0 small"
+                        <input type="search" name="query" class="form-control bg-light border-0 small"
                             placeholder="Search users..." aria-label="Search" value="{{ request('query') }}">
                     </div>
                 </form>

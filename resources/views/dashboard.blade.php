@@ -96,7 +96,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="text-center">
-                                                   <span>{{ $document->title }}</span>
+                                                    <span>{{ $document->title }}</span>
                                                 </td>
                                                 <td class="text-center">
                                                     @if ($document->status == 'verified')
@@ -120,8 +120,13 @@
                                                     <div class="btn-group shadow-sm rounded-3">
                                                         <a href="{{ asset('storage/' . $document->file_path) }}"
                                                             target="_blank" class="btn btn-white btn-sm px-3 border-end"
-                                                            title="View/Download">
+                                                            title="View">
                                                             <i class="bi bi-eye"></i>
+                                                        </a>
+                                                        <a href="{{ asset('storage/' . $document->file_path) }}" download
+                                                            target="_blank" class="btn btn-white btn-sm px-3 border-end"
+                                                            title="Download">
+                                                            <i class="bi bi-download"></i>
                                                         </a>
                                                         <form action="{{ route('documents.destroy', $document->id) }}"
                                                             method="POST"
@@ -193,7 +198,8 @@
                                 <p class="text-muted small mb-4">{{ Auth::user()->email }}</p>
 
                                 <div class="d-grid gap-2">
-                                    <a href="{{ route('users.profile') }}" class="btn btn-primary fw-bold py-2 shadow-sm">
+                                    <a href="{{ route('users.profile') }}"
+                                        class="btn btn-primary fw-bold py-2 shadow-sm">
                                         <i class="bi bi-pencil-square me-2"></i>Update Profile
                                     </a>
                                     <a href="javascript:void(0)"
