@@ -75,7 +75,7 @@
 
                                 <td>
                                     <span
-                                        class="badge bg-success-subtle text-{{ $user->is_active == 1 ? 'success' : 'danger' }} rounded-pill px-3 py-2 small">{{ $user->is_active == 1 ? 'Active' : 'inActive' }}</span>
+                                        class="badge bg-{{ $user->is_active == 1 ? 'success' : 'danger' }}-subtle text-{{ $user->is_active == 1 ? 'success' : 'danger' }} rounded-pill px-3 py-2 small">{{ $user->is_active == 1 ? 'Active' : 'InActive' }}</span>
                                 </td>
                                 <td class="pe-4 text-end">
                                     <div class="dropdown">

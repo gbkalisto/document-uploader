@@ -32,6 +32,7 @@ class CustomerUpdateRequest extends FormRequest
 
         return [
             'name' => 'required|string|max:50',
+            'is_active'=>'required|boolean',
             'email' => [
                 'required', // Fixed: was 'request'
                 'email',

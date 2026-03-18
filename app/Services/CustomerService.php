@@ -67,7 +67,9 @@ class CustomerService
             $userData = [
                 'name'  => $data['name'],
                 'email' => $data['email'],
+                'is_active' =>$data['is_active']
             ];
+
 
             if (!empty($data['password'])) {
                 $userData['password'] = Hash::make($data['password']);
