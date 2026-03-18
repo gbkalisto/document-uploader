@@ -15,8 +15,8 @@ class UsersExport implements FromCollection, WithHeadings, WithMapping, ShouldAu
      */
     public function collection()
     {
-        // Fetch users with document count to match your UI
-        return User::withCount('documents')->with('profile')->get();
+        // Eager load documents and profile to keep the export fast
+        return User::with(['profile', 'documents'])->withCount('documents')->get();
     }
 
     /**
@@ -30,6 +30,7 @@ class UsersExport implements FromCollection, WithHeadings, WithMapping, ShouldAu
             'Email Address',
             'Phone Number',
             'Documents Count',
+            'Document URLs', // New Column
             'Account Status',
             'Joined Date',
         ];
@@ -40,13 +41,18 @@ class UsersExport implements FromCollection, WithHeadings, WithMapping, ShouldAu
      */
     public function map($user): array
     {
+        // Generate comma-separated full URLs
+        $documentUrls = $user->documents->map(function ($doc) {
+            return asset('storage/' . $doc->file_path);
+        })->implode(', ');
+
         return [
             $user->id,
             $user->name,
             $user->email,
-            // Use the null-safe operator to prevent crashes if profile is missing
             $user->profile?->phone ?? 'N/A',
             $user->documents_count,
+            $documentUrls ?: 'N/A', // If empty, show fallback text
             $user->is_active ? 'Active' : 'Inactive',
             $user->created_at->format('Y-m-d'),
         ];
