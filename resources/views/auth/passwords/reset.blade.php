@@ -53,15 +53,15 @@
 @endpush
 
 @section('content')
-    <div class="container-fluid min-vh-80 d-flex align-items-center bg-light-soft">
+    <div class="container-fluid min-vh-100 d-flex align-items-center bg-light-soft">
         <div class="row justify-content-center w-100">
             <div class="col-11 col-sm-9 col-md-7 col-lg-5 col-xl-4">
 
                 <div class="text-center mb-4">
-                    <div class="bg-primary d-inline-block rounded-circle shadow-sm mb-3"
+                    {{-- <div class="bg-primary d-inline-block rounded-circle shadow-sm mb-3"
                         style="width: 60px; height: 60px; line-height: 60px;">
                         <i class="bi bi-shield-lock-fill text-white fs-3"></i>
-                    </div>
+                    </div> --}}
                     <h3 class="fw-bold text-dark">{{ __('Reset Password') }}</h3>
                     <p class="text-muted small">Update your account with a new secure password</p>
                 </div>

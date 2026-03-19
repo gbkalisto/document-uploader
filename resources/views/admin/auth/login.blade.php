@@ -29,8 +29,8 @@
             background: white;
         }
 
-        .btn-dark {
-            background-color: #1a1a1a;
+        .btn-primary {
+            background-color: #0d6efd;
             border: none;
             padding: 12px;
             border-radius: 10px;
@@ -88,7 +88,7 @@
             </div>
 
             <div class="d-grid">
-                <button type="submit" class="btn btn-dark">Login</button>
+                <button type="submit" class="btn btn-primary">Login</button>
             </div>
         </form>
     </div>
