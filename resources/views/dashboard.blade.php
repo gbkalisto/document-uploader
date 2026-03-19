@@ -116,31 +116,6 @@
                                                         </span>
                                                     @endif
                                                 </td>
-                                                {{-- <td class="text-end pe-4">
-                                                    <div class="btn-group shadow-sm rounded-3">
-                                                        <a href="{{ asset('storage/' . $document->file_path) }}"
-                                                            target="_blank" class="btn btn-white btn-sm px-3 border-end"
-                                                            title="View">
-                                                            <i class="bi bi-eye"></i>
-                                                        </a>
-                                                        <a href="{{ asset('storage/' . $document->file_path) }}" download
-                                                            target="_blank" class="btn btn-white btn-sm px-3 border-end"
-                                                            title="Download">
-                                                            <i class="bi bi-download"></i>
-                                                        </a>
-                                                        <form action="{{ route('documents.destroy', $document->id) }}"
-                                                            method="POST"
-                                                            onsubmit="return confirm('Are you sure you want to delete this document?')">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"
-                                                                class="btn btn-white btn-sm px-3 text-danger"
-                                                                title="Delete">
-                                                                <i class="bi bi-trash"></i>
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                </td> --}}
                                                 <td class="text-end pe-4">
                                                     <div class="dropdown">
                                                         <button class="btn btn-light btn-sm shadow-sm" type="button"
@@ -199,7 +174,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="3" class="text-center py-5">
+                                                <td colspan="4" class="text-center py-5">
                                                     <div class="py-4">
                                                         <div class="bg-light d-inline-flex align-items-center justify-content-center rounded-circle mb-3"
                                                             style="width: 80px; height: 80px;">
