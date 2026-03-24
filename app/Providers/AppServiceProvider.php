@@ -33,7 +33,10 @@ class AppServiceProvider extends ServiceProvider
 
         // Otherwise (Local), use the default 'build' directory
         if (file_exists(base_path('../public_html'))) {
-           Vite::useBuildDirectory('../../public_html/build');
+            Vite::useBuildDirectory('../../public_html/build');
+
+            // Force the asset URL to point to your domain root
+            Vite::useHotFile(base_path('../public_html/hot'));
         }
     }
 }
