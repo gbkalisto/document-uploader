@@ -54,9 +54,15 @@
         <form action="{{ route('admin.post.login') }}" method="POST">
             @csrf
             <div class="mb-3">
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
                 <label for="email" class="form-label small fw-semibold text-secondary">Email Address</label>
-                <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror"
-                    placeholder="admin@example.com" value="{{ old('email') }}" autofocus>
+                <input type="email" name="email" id="email"
+                    class="form-control @error('email') is-invalid @enderror" placeholder="admin@example.com"
+                    value="{{ old('email') }}" autofocus>
                 @error('email')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror

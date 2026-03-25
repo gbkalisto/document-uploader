@@ -87,6 +87,14 @@
             background-image: radial-gradient(#d1d9e6 0.5px, transparent 0.5px);
             background-size: 20px 20px;
         }
+
+        .alert-dismissible .btn-close {
+            position: absolute;
+            top: 12px;
+            right: 0;
+            z-index: 2;
+            padding: 1.25rem 1rem;
+        }
     </style>
 </head>
 
