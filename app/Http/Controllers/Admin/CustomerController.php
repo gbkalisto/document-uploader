@@ -11,14 +11,19 @@ use App\Http\Requests\CustomerUpdateRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Services\ZipDownloadService;
 use Exception;
+
+
 
 class CustomerController extends Controller
 {
     private $customerService;
-    public function __construct(CustomerService $customerService)
+    protected $zipService;
+    public function __construct(CustomerService $customerService, ZipDownloadService $zipService)
     {
         $this->customerService = $customerService;
+        $this->zipService = $zipService;
     }
 
     /**
@@ -96,5 +101,10 @@ class CustomerController extends Controller
         } catch (Exception $e) {
             return back()->with('error', 'Export failed: ' . $e->getMessage());
         }
+    }
+
+    public function exportDocuments(Request $request)
+    {
+        return $this->zipService->downloadAllDocuments();
     }
 }

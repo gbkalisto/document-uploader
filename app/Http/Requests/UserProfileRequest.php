@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UserProfileRequest extends FormRequest
 {
@@ -21,11 +22,21 @@ class UserProfileRequest extends FormRequest
      */
     public function rules(): array
     {
+        // $userId = $this->route('user')?->id ?? $this->route('user');
+        $userId = $this->route('user')?->id ?? $this->route('user') ?? auth()->id();
         return [
-            'phone'=>'nullable|numeric|digits:10',
-            'address'=>'nullable|string',
-            'dob'=>'nullable|date',
-            'profile_picture'=>'nullable|image|mimes:jpg,png,jpeg,webp|max:2048',
+            'name' => 'required|string|max:50',
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+                Rule::unique('users')->ignore($userId)
+            ],
+            'aadhar_last_four_digit' => 'required|numeric|digits:4',
+            'phone' => 'nullable|numeric|digits:10',
+            'address' => 'nullable|string',
+            'dob' => 'nullable|date',
+            'profile_picture' => 'nullable|image|mimes:jpg,png,jpeg,webp|max:2048',
         ];
     }
 }

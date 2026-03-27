@@ -37,6 +37,7 @@ class CustomerService
             $user = User::create([
                 'name'     => $data['name'],
                 'email'    => $data['email'],
+                'aadhar_last_four_digit' => $data['aadhar_last_four_digit'],
                 'password' => Hash::make($data['password']),
             ]);
 
@@ -67,7 +68,8 @@ class CustomerService
             $userData = [
                 'name'  => $data['name'],
                 'email' => $data['email'],
-                'is_active' =>$data['is_active']
+                'aadhar_last_four_digit' => $data['aadhar_last_four_digit'],
+                'is_active' => $data['is_active']
             ];
 
 

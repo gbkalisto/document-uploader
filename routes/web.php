@@ -46,5 +46,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('profile', [AdminProfileController::class, 'update'])->name('profile.update');
         Route::get('customers/{customer}/documents', [CustomerController::class, 'documents'])->name('customers.documents');
         Route::get('customers/export/data', [CustomerController::class, 'export'])->name('customers.export');
+        Route::get('export/documents', [CustomerController::class, 'exportDocuments'])->name('export.user.doc');
     });
 });

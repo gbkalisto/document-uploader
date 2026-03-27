@@ -26,12 +26,12 @@ class DocumentStoreRequest extends FormRequest
             'title' => [
                 'required',
                 'string',
-                'in:Aadhar Card Front,Aadhar Card Back,Pan Card,Ration Card,Voter Id,Driving License',
+                'in:Aadhar Card Front,Aadhar Card Back,Pan Card,Ration Card,Voter Id,Driving License,Registration Id,Admit Card,Q Paper,A Paper',
             ],
             'document' => [
                 'required',
                 'file',
-                'mimes:pdf,jpg,jpeg,png',
+                'mimes:pdf',
                 'max:5120' // 5MB limit
             ],
         ];
@@ -44,9 +44,9 @@ class DocumentStoreRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'document.mimes' => 'Only PDF, JPG, and PNG files are allowed.',
+            'document.mimes' => 'Only PDF is allowed.',
             'document.max'   => 'The file size must not exceed 5MB.',
-            'title.required' => 'Please give your document a name (e.g., Aadhar Card).',
+            'title.required' => 'Please choose your document a name (e.g., Aadhar Card).',
         ];
     }
 }

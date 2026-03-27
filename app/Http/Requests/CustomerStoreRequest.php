@@ -25,6 +25,7 @@ class CustomerStoreRequest extends FormRequest
         return [
             'name' => 'required|string|max:25',
             'email' => 'required|email|unique:users',
+            'aadhar_last_four_digit' => 'required|digits:4',
             'password' => 'required|confirmed|min:6',
             'phone' => 'nullable|numeric|digits:10',
             'address' => 'nullable|string',

@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Profile;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+
 
 class RegisterController extends Controller
 {
@@ -52,6 +55,8 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            // 'aadhar_last_four_digit' => ['nullable', 'numeric', 'digits:4'],
+            'phone' => ['required', 'digits:10']
         ]);
     }
 
@@ -63,10 +68,24 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        // Use a transaction to ensure both records are created or none at all
+        return DB::transaction(function () use ($data) {
+
+            $user = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                // 'aadhar_last_four_digit' => $data['aadhar_last_four_digit'],
+                'password' => Hash::make($data['password']),
+            ]);
+
+            // Create the profile linked to the user
+            Profile::create([
+                'user_id' => $user->id,
+                'phone' => $data['phone'],
+            ]);
+
+            // The RegistersUsers trait expects the User object returned
+            return $user;
+        });
     }
 }

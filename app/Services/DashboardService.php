@@ -14,7 +14,7 @@ class DashboardService
         return [
             'user_count' => User::count(),
             'document_count' => Document::count(),
-            'recentUsers' => User::withCount('documents')->OrderBy('id', 'desc')->latest()->take(5)->get(),
+            'recentUsers' => User::with('profile:id,user_id,phone')->withCount('documents')->OrderBy('id', 'desc')->latest()->take(5)->get(),
         ];
     }
 }

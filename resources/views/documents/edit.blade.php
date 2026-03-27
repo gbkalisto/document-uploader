@@ -37,6 +37,10 @@
                                             'Ration Card',
                                             'Voter Id',
                                             'Driving License',
+                                            'Registration Id',
+                                            'Admit Card',
+                                            'A Paper',
+                                            'Q Paper',
                                         ];
                                     @endphp
                                     @foreach ($options as $option)
@@ -57,7 +61,7 @@
                                     class="upload-area bg-light rounded-4 p-5 text-center border-2 border-dashed position-relative">
                                     <input type="file" name="document"
                                         class="position-absolute w-100 h-100 top-0 start-0 opacity-0 cursor-pointer"
-                                        id="fileInput" onchange="updateFileName()">
+                                        id="fileInput" accept="application/pdf"  onchange="updateFileName()">
 
                                     {{-- Placeholder for current file --}}
                                     <div id="uploadPlaceholder">

@@ -37,10 +37,6 @@
             <div class="col-11 col-sm-9 col-md-7 col-lg-5 col-xl-4">
 
                 <div class="text-center mb-4">
-                    {{-- <div class="bg-primary d-inline-block rounded-circle shadow-sm mb-3"
-                        style="width: 60px; height: 60px; line-height: 60px;">
-                        <i class="bi bi-person-plus-fill text-white fs-3"></i>
-                    </div> --}}
                     <h3 class="fw-bold text-dark">Create Account</h3>
                     <p class="text-muted small">Join us to start managing your documents</p>
                 </div>
@@ -83,6 +79,40 @@
                                     <span class="text-danger small mt-1 d-block"><strong>{{ $message }}</strong></span>
                                 @enderror
                             </div>
+
+                            <div class="mb-4">
+                                <label for="email" class="form-label small fw-bold text-uppercase text-secondary">Phone
+                                    Number</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 text-muted">
+                                        <i class="bi bi-telephone"></i>
+                                    </span>
+                                    <input id="phone" type="phone"
+                                        class="form-control border-start-0 ps-0 py-2 @error('phone') is-invalid @enderror"
+                                        name="phone" value="{{ old('phone') }}" required autocomplete="phone"
+                                        placeholder="(555) 123-4567">
+                                </div>
+                                @error('phone')
+                                    <span class="text-danger small mt-1 d-block"><strong>{{ $message }}</strong></span>
+                                @enderror
+                            </div>
+
+                            {{-- <div class="mb-4">
+                                <label for="email" class="form-label small fw-bold text-uppercase text-secondary">Aadhar
+                                    Number (Last 4 digit)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 text-muted">
+                                        <i class="bi bi-shield-check"></i>
+                                    </span>
+                                    <input id="aadhar_last_four_digit" type="phone"
+                                        class="form-control border-start-0 ps-0 py-2 @error('aadhar_last_four_digit') is-invalid @enderror"
+                                        name="aadhar_last_four_digit" value="{{ old('aadhar_last_four_digit') }}" required autocomplete="aadhar_last_four_digit"
+                                        placeholder="4567">
+                                </div>
+                                @error('aadhar_last_four_digit')
+                                    <span class="text-danger small mt-1 d-block"><strong>{{ $message }}</strong></span>
+                                @enderror
+                            </div> --}}
 
                             <div class="mb-4">
                                 <label for="password"

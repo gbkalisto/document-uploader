@@ -27,12 +27,12 @@ class UpdateDocumentRequest extends FormRequest
                 'required',
                 'string',
                 // Ensures the value is one of your predefined types
-                'in:Aadhar Card Front,Aadhar Card Back,Pan Card,Ration Card,Voter Id,Driving License',
+                'in:Aadhar Card Front,Aadhar Card Back,Pan Card,Ration Card,Voter Id,Driving License,Registration Id,Admit Card,Q Paper,A Paper',
             ],
             'document' => [
                 'nullable', // Perfect for Update!
                 'file',
-                'mimes:pdf,jpg,jpeg,png',
+                'mimes:pdf',
                 'max:5120',
             ],
         ];
@@ -42,7 +42,7 @@ class UpdateDocumentRequest extends FormRequest
     {
         return [
             'title.in' => 'Please select a valid document type from the list.',
-            'document.mimes' => 'Only PDF, JPG, and PNG files are allowed.',
+            'document.mimes' => 'Only PDF is allowed.',
             'document.max'   => 'The file size must not exceed 5MB.',
             'title.required' => 'Please select a document type.',
         ];

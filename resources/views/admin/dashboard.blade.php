@@ -61,7 +61,7 @@
 
         <div class="row g-4">
             {{-- Recent Customers Table --}}
-            <div class="col-12 col-lg-8">
+            <div class="col-12 col-lg-12">
                 <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
                     <div class="card-header bg-white border-0 py-4 px-4 d-flex justify-content-between align-items-center">
                         <h5 class="mb-0 fw-bold text-dark">Recent Customers</h5>
@@ -78,6 +78,10 @@
                                         style="font-size: 0.65rem;">Customer</th>
                                     <th class="border-0 text-muted small text-uppercase fw-bold"
                                         style="font-size: 0.65rem;">Email</th>
+                                    <th class="border-0 text-muted small text-uppercase fw-bold"
+                                        style="font-size: 0.65rem;">Phone</th>
+                                    <th class="border-0 text-muted small text-uppercase fw-bold"
+                                        style="font-size: 0.65rem;">Aadhar</th>
                                     <th class="border-0 text-muted small text-uppercase fw-bold"
                                         style="font-size: 0.65rem;">Documents Count</th>
                                     <th class="border-0 text-muted small text-uppercase fw-bold text-end pe-4"
@@ -98,6 +102,8 @@
                                             </div>
                                         </td>
                                         <td class="text-muted small">{{ $user->email }}</td>
+                                        <td class="text-muted small">{{ $user->profile->phone ?? 'N/A' }}</td>
+                                        <td class="text-muted small">{{ $user->aadhar_last_four_digit ?? 'N/A' }}</td>
                                         <td class="text-muted small">{{ $user->documents_count }}</td>
                                         <td class="text-end pe-4">
                                             <span
@@ -121,49 +127,6 @@
                 </div>
             </div>
 
-            {{-- Profile Card --}}
-            <div class="col-12 col-lg-4">
-                <div class="card border-0 shadow-sm rounded-4 p-4 text-center h-100 hover-bounce">
-                    <div class="position-relative d-inline-block mx-auto mb-3">
-                        <div class="rounded-circle p-1 border border-2 border-primary border-opacity-25"
-                            style="width: fit-content;">
-                            @if (Auth::guard('admin')->user()->profile_picture)
-                                {{-- Show Uploaded Profile Picture --}}
-                                <img src="{{ asset('storage/' . Auth::guard('admin')->user()->profile_picture) }}"
-                                    class="rounded-circle shadow-sm" width="90" height="90"
-                                    style="object-fit: cover;" alt="Profile">
-                            @else
-                                {{-- Show UI Avatar fallback --}}
-                                <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::guard('admin')->user()->first_name . ' ' . Auth::guard('admin')->user()->last_name) }}&background=4361ee&color=fff"
-                                    class="rounded-circle shadow-sm" width="90" alt="Profile">
-                            @endif
-                        </div>
-                        <span
-                            class="position-absolute bottom-0 end-0 bg-success border border-white border-3 rounded-circle"
-                            style="width: 18px; height: 18px;" title="Online"></span>
-                    </div>
-
-                    <h4 class="fw-bold mb-1">{{ Auth::guard('admin')->user()->first_name }}
-                        {{ Auth::guard('admin')->user()->last_name }}</h4>
-                    <p class="text-muted small mb-4">System Administrator</p>
-
-                    <div class="border-top pt-4 mt-2">
-                        <div class="d-grid gap-2">
-                            <a href="{{ route('admin.profile') }}"
-                                class="btn btn-primary py-2 rounded-3 shadow-sm mb-1 hover-lift">
-                                <i class="bi bi-pencil-square me-2"></i>Edit Profile
-                            </a>
-
-                            <form action="{{ route('admin.logout') }}" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-outline-danger border-0 btn-sm w-100">
-                                    <i class="bi bi-box-arrow-right me-1"></i> Sign Out
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 

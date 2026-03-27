@@ -10,6 +10,9 @@
             </div>
             <div class="col-auto">
                 <div class="d-flex gap-2">
+                    <a href="{{ route('admin.export.user.doc') }}" class="btn btn-white shadow-sm border-0 px-3">
+                        <i class="bi bi-download me-2"></i>Export Documents
+                    </a>
                     <a href="{{ route('admin.customers.export') }}" class="btn btn-white shadow-sm border-0 px-3">
                         <i class="bi bi-download me-2"></i>Export
                     </a>
@@ -44,6 +47,8 @@
                             <th class="ps-4 border-0 text-muted small fw-bold text-uppercase">ID</th>
                             <th class="ps-4 border-0 text-muted small fw-bold text-uppercase">Name</th>
                             <th class="border-0 text-muted small fw-bold text-uppercase">Email</th>
+                            <th class="border-0 text-muted small fw-bold text-uppercase">Phone</th>
+                            <th class="border-0 text-muted small fw-bold text-uppercase">Aadhar</th>
                             <th class="border-0 text-muted small fw-bold text-uppercase">Document Count</th>
                             <th class="border-0 text-muted small fw-bold text-uppercase">Status</th>
                             <th class="pe-4 border-0 text-end text-muted small fw-bold text-uppercase">Actions</th>
@@ -69,7 +74,17 @@
                                 </td>
                                 <td>
                                     <p class="mb-0 text-muted small text-truncate">
-                                       <span class="badge bg-secondary">{{ $user->documents_count }}</span>
+                                        {{ $user->profile->phone ?? 'N/A' }}
+                                    </p>
+                                </td>
+                                <td>
+                                    <p class="mb-0 text-muted small text-truncate">
+                                        {{ $user->aadhar_last_four_digit ?? 'N/A' }}
+                                    </p>
+                                </td>
+                                <td>
+                                    <p class="mb-0 text-muted small text-truncate">
+                                        <span class="badge bg-secondary">{{ $user->documents_count }}</span>
                                     </p>
                                 </td>
 

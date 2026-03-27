@@ -23,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'aadhar_last_four_digit',
         'is_active'
     ];
 

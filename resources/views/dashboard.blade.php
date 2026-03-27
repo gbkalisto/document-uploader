@@ -20,11 +20,11 @@
 
                 <div class="row">
                     {{-- Left Side: Document Management --}}
-                    <div class="col-lg-8">
+                    <div class="col-lg-12">
 
                         {{-- Single Stat Card with Bounce --}}
                         <div class="row mb-4">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="card border-0 shadow-sm rounded-4 hover-bounce">
                                     <div class="card-body p-4 d-flex align-items-center">
                                         <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-4 me-4">
@@ -38,7 +38,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <a href="{{ route('documents.create') }}" style="text-decoration:none">
                                     <div class="card border-0 shadow-sm rounded-4 hover-bounce">
                                         <div class="card-body p-4 d-flex align-items-center">
@@ -95,7 +95,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class="text-center">
+                                                <td>
                                                     <span>{{ $document->title }}</span>
                                                 </td>
                                                 <td class="text-center">
@@ -209,7 +209,7 @@
                     </div>
 
                     {{-- Right Side: Profile Summary --}}
-                    <div class="col-lg-4">
+                    {{-- <div class="col-lg-4">
                         <div class="card border-0 shadow-sm rounded-4 mb-4 hover-bounce">
                             <div class="card-body p-4 text-center">
                                 <div class="position-relative d-inline-block mb-3">
@@ -258,7 +258,7 @@
                                     format and don't exceed 5MB per file.</p>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
 
             </div>

@@ -56,6 +56,21 @@
                                         {{ old('title') == 'Driving License' ? 'selected' : '' }}>
                                         Driving License
                                     </option>
+
+                                    <option value="Registration Id"
+                                        {{ old('title') == 'Registration Id' ? 'selected' : '' }}>
+                                        Registration Id
+                                    </option>
+                                    <option value="Admit Card" {{ old('title') == 'Admit Card' ? 'selected' : '' }}>
+                                        Admit Card
+                                    </option>
+                                    <option value="Q Paper " {{ old('title') == 'Q Paper ' ? 'selected' : '' }}>
+                                        Q Paper
+                                    </option>
+                                    <option value="A Paper" {{ old('title') == 'A Paper' ? 'selected' : '' }}>
+                                        A Paper
+                                    </option>
+
                                 </select>
                                 @error('title')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -68,11 +83,11 @@
                                     class="upload-area bg-light rounded-4 p-5 text-center border-2 border-dashed position-relative">
                                     <input type="file" name="document"
                                         class="position-absolute w-100 h-100 top-0 start-0 opacity-0 cursor-pointer"
-                                        id="fileInput" onchange="updateFileName()" required>
+                                        id="fileInput" accept="application/pdf" onchange="updateFileName()" required>
                                     <div id="uploadPlaceholder">
                                         <i class="bi bi-cloud-arrow-up fs-1 text-primary mb-2"></i>
                                         <h6 class="fw-bold">Click to upload or drag and drop</h6>
-                                        <p class="text-muted small mb-0">PDF, JPG or PNG (Max. 5MB)</p>
+                                        <p class="text-muted small mb-0">PDF (Max. 5MB)</p>
                                     </div>
                                     <div id="fileSelected" class="d-none">
                                         <i class="bi bi-file-earmark-check fs-1 text-success mb-2"></i>

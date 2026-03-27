@@ -123,20 +123,12 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label class="form-label fw-bold small text-uppercase">Status </label>
-                                    <div class="d-flex align-items-center gap-3">
-                                        <select name="is_active" id="is_active" class="form-control bg-light">
-                                            <option value="1"
-                                                {{ old('is_active', $user->is_active) == 1 ? 'selected' : '' }}>
-                                                Active
-                                            </option>
-                                            <option value="0"
-                                                {{ old('is_active', $user->is_active) == 0 ? 'selected' : '' }}>
-                                                Inactive
-                                            </option>
-                                        </select>
-                                    </div>
-                                    @error('status')
+                                    <label class="form-label fw-bold small text-uppercase">Aadhar (Last 4 digit)</label>
+                                    <input type="number" name="aadhar_last_four_digit" placeholder="XXXXXXXX1234"
+                                        value="{{ old('phone', $user->aadhar_last_four_digit ?? '') }}"
+                                        class="form-control bg-light @error('aadhar_last_four_digit') is-invalid @enderror">
+
+                                    @error('aadhar_last_four_digit')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -149,6 +141,21 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
+
+                                <div class="col-md-6 ">
+                                    <div class="form-check form-switch p-0 ps-5 ms-2">
+                                        <input class="form-check-input" type="checkbox" name="is_active" id="is_active"
+                                            role="switch" value="1"
+                                            {{ old('is_active', $user->is_active) == 1 ? 'checked' : '' }}
+                                            style="width: 2rem; height: 1rem; cursor: pointer;">
+                                        <label class="form-check-label ms-3 fw-bold small text-uppercase" for="is_active"
+                                            style="cursor: pointer;">
+                                            Account Status <span class="text-muted">(Active)</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+
                             </div>
 
                             <hr class="my-5 opacity-25">

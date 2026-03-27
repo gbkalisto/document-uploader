@@ -32,13 +32,14 @@ class CustomerUpdateRequest extends FormRequest
 
         return [
             'name' => 'required|string|max:50',
-            'is_active'=>'required|boolean',
+            'is_active' => 'required|boolean',
             'email' => [
                 'required', // Fixed: was 'request'
                 'email',
                 'max:255',
                 Rule::unique('users')->ignore($userId)
             ],
+            'aadhar_last_four_digit' => 'required|digits:4',
             'password' => 'nullable|confirmed|min:8',
             'phone' => 'nullable|numeric|digits:10',
             'address' => 'nullable|string',
