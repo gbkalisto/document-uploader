@@ -57,9 +57,10 @@
 
                                 <div class="col-md-6">
                                     <label class="form-label fw-bold small text-uppercase">Phone Number</label>
-                                    <input type="text" name="phone"
+                                    <input type="tel" name="phone" id="phone"
                                         class="form-control bg-light @error('phone') is-invalid @enderror"
-                                        value="{{ old('phone', $user->profile->phone ?? '') }}">
+                                        value="{{ old('phone', $user->profile->phone ?? '') }}" maxlength="10"
+                                        inputmode="numeric">
                                     @error('phone')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -123,10 +124,14 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label class="form-label fw-bold small text-uppercase">Aadhar (Last 4 digit)</label>
-                                    <input type="number" name="aadhar_last_four_digit" placeholder="XXXXXXXX1234"
-                                        value="{{ old('phone', $user->aadhar_last_four_digit ?? '') }}"
-                                        class="form-control bg-light @error('aadhar_last_four_digit') is-invalid @enderror">
+                                    <label class="form-label fw-bold small text-uppercase">Aadhar (Last 4 digit) <span
+                                            class="text-danger">*</span></label>
+                                    <input type="tel" name="aadhar_last_four_digit" id="aadhar_last_four_digit"
+                                        placeholder="XXXXXXXX1234"
+                                        value="{{ old('phone', $user->aadhar_last_four_digit ?? '') }}" maxlength="4"
+                                        inputmode="numeric"
+                                        class="form-control bg-light @error('aadhar_last_four_digit') is-invalid @enderror"
+                                        required>
 
                                     @error('aadhar_last_four_digit')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -174,3 +179,28 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const phoneInput = document.getElementById('phone');
+            const aadharInput = document.getElementById('aadhar_last_four_digit');
+
+            const validateNumericLength = (input, maxLength) => {
+                input.addEventListener('input', function(e) {
+                    // Remove any non-digit characters
+                    this.value = this.value.replace(/\D/g, '');
+
+                    // Ensure it doesn't exceed the max length
+                    if (this.value.length > maxLength) {
+                        this.value = this.value.slice(0, maxLength);
+                    }
+                });
+            };
+
+            // Apply the rules
+            validateNumericLength(phoneInput, 10);
+            validateNumericLength(aadharInput, 4);
+        });
+    </script>
+@endpush
