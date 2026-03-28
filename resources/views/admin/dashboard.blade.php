@@ -103,7 +103,9 @@
                                         </td>
                                         <td class="text-muted small">{{ $user->email }}</td>
                                         <td class="text-muted small">{{ $user->profile->phone ?? 'N/A' }}</td>
-                                        <td class="text-muted small">{{ $user->aadhar_last_four_digit ?? 'N/A' }}</td>
+                                        <td class="text-muted small">
+                                            {{ $user->aadhar_last_four_digit ? 'XXXXXXXXXX ' . $user->aadhar_last_four_digit : 'N/A' }}
+                                        </td>
                                         <td class="text-muted small">{{ $user->documents_count }}</td>
                                         <td class="text-end pe-4">
                                             <span

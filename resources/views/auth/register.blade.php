@@ -56,7 +56,7 @@
                                     <input id="name" type="text"
                                         class="form-control border-start-0 ps-0 py-2 @error('name') is-invalid @enderror"
                                         name="name" value="{{ old('name') }}" required autocomplete="name" autofocus
-                                        placeholder="John Doe">
+                                        placeholder="">
                                 </div>
                                 @error('name')
                                     <span class="text-danger small mt-1 d-block"><strong>{{ $message }}</strong></span>
@@ -73,7 +73,7 @@
                                     <input id="email" type="email"
                                         class="form-control border-start-0 ps-0 py-2 @error('email') is-invalid @enderror"
                                         name="email" value="{{ old('email') }}" required autocomplete="email"
-                                        placeholder="name@example.com">
+                                        placeholder="">
                                 </div>
                                 @error('email')
                                     <span class="text-danger small mt-1 d-block"><strong>{{ $message }}</strong></span>
@@ -87,32 +87,32 @@
                                     <span class="input-group-text bg-white border-end-0 text-muted">
                                         <i class="bi bi-telephone"></i>
                                     </span>
-                                    <input id="phone" type="phone"
+                                    <input id="phone" type="tel" maxlength="10" inputmode="numeric"
                                         class="form-control border-start-0 ps-0 py-2 @error('phone') is-invalid @enderror"
                                         name="phone" value="{{ old('phone') }}" required autocomplete="phone"
-                                        placeholder="(555) 123-4567">
+                                        placeholder="">
                                 </div>
                                 @error('phone')
                                     <span class="text-danger small mt-1 d-block"><strong>{{ $message }}</strong></span>
                                 @enderror
                             </div>
 
-                            {{-- <div class="mb-4">
+                            <div class="mb-4">
                                 <label for="email" class="form-label small fw-bold text-uppercase text-secondary">Aadhar
                                     Number (Last 4 digit)</label>
                                 <div class="input-group">
                                     <span class="input-group-text bg-white border-end-0 text-muted">
                                         <i class="bi bi-shield-check"></i>
                                     </span>
-                                    <input id="aadhar_last_four_digit" type="phone"
+                                    <input id="aadhar_last_four_digit" type="tel" maxlength="4" inputmode="numeric"
                                         class="form-control border-start-0 ps-0 py-2 @error('aadhar_last_four_digit') is-invalid @enderror"
-                                        name="aadhar_last_four_digit" value="{{ old('aadhar_last_four_digit') }}" required autocomplete="aadhar_last_four_digit"
-                                        placeholder="4567">
+                                        name="aadhar_last_four_digit" value="{{ old('aadhar_last_four_digit') }}" required
+                                        autocomplete="aadhar_last_four_digit" placeholder="">
                                 </div>
                                 @error('aadhar_last_four_digit')
                                     <span class="text-danger small mt-1 d-block"><strong>{{ $message }}</strong></span>
                                 @enderror
-                            </div> --}}
+                            </div>
 
                             <div class="mb-4">
                                 <label for="password"
@@ -192,6 +192,27 @@
                     }
                 });
             });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const phoneInput = document.getElementById('phone');
+            const aadharInput = document.getElementById('aadhar_last_four_digit');
+
+            const validateNumericLength = (input, maxLength) => {
+                input.addEventListener('input', function(e) {
+                    // Remove any non-digit characters
+                    this.value = this.value.replace(/\D/g, '');
+
+                    // Ensure it doesn't exceed the max length
+                    if (this.value.length > maxLength) {
+                        this.value = this.value.slice(0, maxLength);
+                    }
+                });
+            };
+
+            // Apply the rules
+            validateNumericLength(phoneInput, 10);
+            validateNumericLength(aadharInput, 4);
         });
     </script>
 @endsection

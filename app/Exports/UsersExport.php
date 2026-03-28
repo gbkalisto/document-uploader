@@ -29,6 +29,7 @@ class UsersExport implements FromCollection, WithHeadings, WithMapping, ShouldAu
             'Full Name',
             'Email Address',
             'Phone Number',
+            'Aadhar Number',
             'Documents Count',
             'Document URLs', // New Column
             'Account Status',
@@ -51,6 +52,7 @@ class UsersExport implements FromCollection, WithHeadings, WithMapping, ShouldAu
             $user->name,
             $user->email,
             $user->profile?->phone ?? 'N/A',
+            $user->aadhar_last_four_digit ? 'XXXXXXXXXX ' . $user->aadhar_last_four_digit  : 'N/A',
             $user->documents_count,
             $documentUrls ?: 'N/A', // If empty, show fallback text
             $user->is_active ? 'Active' : 'Inactive',

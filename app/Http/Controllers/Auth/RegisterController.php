@@ -55,7 +55,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            // 'aadhar_last_four_digit' => ['nullable', 'numeric', 'digits:4'],
+            'aadhar_last_four_digit' => ['nullable', 'numeric', 'digits:4'],
             'phone' => ['required', 'digits:10']
         ]);
     }
@@ -74,7 +74,7 @@ class RegisterController extends Controller
             $user = User::create([
                 'name' => $data['name'],
                 'email' => $data['email'],
-                // 'aadhar_last_four_digit' => $data['aadhar_last_four_digit'],
+                'aadhar_last_four_digit' => $data['aadhar_last_four_digit'],
                 'password' => Hash::make($data['password']),
             ]);
 
